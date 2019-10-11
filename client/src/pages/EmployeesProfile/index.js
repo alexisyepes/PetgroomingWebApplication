@@ -6,7 +6,7 @@ import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 import MainCalendar from "../../components/Calendar";
 import API from "../../utils/API";
 import ReactTable from "react-table";
-// import { ScrollTo } from "react-scroll-to";
+import CalendarInstructions from "../../components/CalendarInstructions";
 
 class Profile extends Component {
 	state = {
@@ -377,6 +377,7 @@ class Profile extends Component {
 							<i className="fas fa-chevron-circle-down"></i>
 						</Button>
 					</div>
+					<CalendarInstructions />
 					<div id="mainCalendar">
 						<MainCalendar />
 					</div>
