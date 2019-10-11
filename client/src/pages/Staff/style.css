@@ -1,0 +1,25 @@
+table, th, td {
+    border: 1px solid black;
+  }
+
+#lastName, #firstName, #phone, #petName, #breed, #notes {
+    float: right;
+} 
+
+.formBox {
+    border: 1px solid;
+    color: white;
+    background:rgba(56, 76, 100, 0.897);
+    padding: 15px;
+}
+
+.signOutLink {
+    display: none;
+}
+
+@media (max-width: 360px) {
+    .signOutLink {
+        display: block;
+    }
+
+}

@@ -1,0 +1,11 @@
+#footerText {
+    text-align: center;
+    font-size: 20px;
+}
+.page-footer {
+    background: rgba(3, 26, 77, 0.952);
+    color: white;
+    padding-top: 20px;
+    Padding-bottom: 20px;
+    margin: 0;
+}

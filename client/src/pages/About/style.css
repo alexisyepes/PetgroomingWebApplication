@@ -1,0 +1,140 @@
+.lunaAboutUs {
+    width: 100%;
+    height: auto;
+    margin-top: -80px;
+    position: relative;
+    filter: blur(3px);
+  -webkit-filter: blur(3px);
+}
+
+@keyframes zoominoutsinglefeatured {
+    0% {
+        transform: scale(1,1);
+    }
+    50% {
+        transform: scale(1.2,1.2);
+    }
+    100% {
+        transform: scale(1,1);
+    }
+}
+
+.lunaAboutUs {
+	animation: zoominoutsinglefeatured 15s infinite ;
+}
+
+.logo {
+    position: fixed;
+}
+
+.aboutContainer {
+    background: rgba(31, 83, 117, 0.329);
+    color: white;
+    margin-bottom: 100px;
+    margin-top: 35px;
+    border-radius: 10px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+}
+
+.aboutTitles {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 45px;
+    color: rgb(7, 25, 65);
+    text-shadow: -1px 0 rgb(252, 252, 252), 0 1px rgb(252, 250, 250), 1px 0 rgb(248, 246, 246), 0 -1px rgb(255, 254, 254);
+
+
+}
+
+.pagagAbout {
+    font-size: 35px;
+    text-align: justify;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: rgb(7, 25, 65);
+    text-shadow: -1px 0 rgb(252, 252, 252), 0 1px rgb(252, 250, 250), 1px 0 rgb(248, 246, 246), 0 -1px rgb(255, 254, 254);
+}
+
+.paola {
+    width: 400px;
+    height: auto;
+    border-radius: 100px;
+}
+
+.paolaText, .claudiaText {
+    text-align: justify;
+}
+
+.paolaParag, .claudiaParag {
+    font-size: 25px;
+    margin-top: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 0px;
+    background: rgba(5, 5, 36, 0.63);
+
+}
+
+.paolaBox,.claudiaBox {
+    background: rgba(126, 126, 158, 0.562);
+    border: solid 1px;
+}
+
+.claudia {
+    width: 400px;
+    height: auto;
+    border-radius: 100px;
+}
+
+@media (max-width: 360px) {
+    .lunaAboutUs {
+        margin-top: 5px;
+    }
+
+    .pagagAbout {
+        font-size: 22px;
+    }
+
+    .paola, .claudia {
+        width: 100%;
+        margin-right: auto; 
+        margin-left: auto;
+    }
+
+    .paolaParag, .claudiaParag {
+        font-size: 20px;
+    }
+
+    .phoneEverywhere {
+        position: fixed;
+        display: flex;
+        background: white;
+        font-size: 25px;
+        z-index: 99;
+        top: 0;
+        margin-top: 60px;
+        margin-left: 130px;
+        margin-right: 15px;
+        padding-left: 10px;
+        padding-top: 10px;
+        width: 100%;
+      
+    }
+}
+
+@media (max-width: 768px) {
+   
+    .paola, .claudia {
+        width: 90%;
+        margin-right: auto; 
+        margin-left: auto;
+    }
+
+    .paolaParag, .claudiaParag {
+        font-size: 20px;
+    }
+
+}
