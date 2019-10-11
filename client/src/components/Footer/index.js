@@ -3,7 +3,7 @@ import "./style.css";
 
 function Footer() {
 	return (
-		<footer className="black accent-2 page-footer">
+		<footer className="page-footer">
 			<div className="footer-copyright">
 				<div className="container">
 					<div id="footerText">
