@@ -330,7 +330,7 @@ class Profile extends Component {
 							onClick={this.toggleAddAppointmentFunction}
 						>
 							<a style={{ color: "black" }} href="#mainCalendar">
-								See Paola's Calendar
+								See Admin's Calendar
 							</a>
 							<i className="fas fa-chevron-circle-down"></i>
 						</Button>
@@ -351,7 +351,7 @@ class Profile extends Component {
 							onClick={this.toggleAddAppointmentFunction}
 						>
 							<a style={{ color: "black" }} href="#mainCalendar">
-								See Claudia's Calendar
+								See Emp 1's Calendar
 							</a>
 							<i className="fas fa-chevron-circle-down"></i>
 						</Button>
@@ -372,7 +372,7 @@ class Profile extends Component {
 							onClick={this.toggleAddAppointmentFunction}
 						>
 							<a style={{ color: "black" }} href="#mainCalendar">
-								See Diana's Calendar
+								See Emp 1's Calendar
 							</a>
 							<i className="fas fa-chevron-circle-down"></i>
 						</Button>

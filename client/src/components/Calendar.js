@@ -1055,7 +1055,7 @@ class MainCalendar extends React.Component {
 											color: "white"
 										}}
 									>
-										Mi Pao
+										Admin
 									</h1>
 									<hr style={{ background: "white" }}></hr>
 									<Calendar
@@ -1101,7 +1101,7 @@ class MainCalendar extends React.Component {
 											color: "white"
 										}}
 									>
-										Guayita
+										Employee 1
 									</h1>
 									<hr style={{ background: "white" }}></hr>
 									<Calendar
@@ -1147,7 +1147,7 @@ class MainCalendar extends React.Component {
 											color: "white"
 										}}
 									>
-										Dianis
+										Employee 2
 									</h1>
 									<hr style={{ background: "white" }}></hr>
 									<Calendar
