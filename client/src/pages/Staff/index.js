@@ -306,7 +306,7 @@ class AdminComp extends Component {
     const { isLoading, error } = this.state;
     if (error) {
       return (
-        <div style={{ marginLeft: "10%", fontSize: "30px" }}>
+        <div style={{ marginLeft: "10%", fontSize: "30px", height: "100vh" }}>
           ...Problem fetching user data. Please login again 
           <span role="img" aria-label="Face With Rolling Eyes Emoji">
             🙄
