@@ -8,7 +8,7 @@ function Footer() {
 				<div className="container">
 					<div id="footerText">
 						<b>
-							© 2019 Alexis Yepes Sanabria <i className="fas fa-paw"></i>
+							© 2019 Amazing Pet Grooming <i className="fas fa-paw"></i>
 						</b>
 					</div>
 				</div>

@@ -1,0 +1,109 @@
+.controlPanelHeading {
+	text-align: center;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	margin-bottom: 20px;
+	font-size: 50px;
+}
+
+.emailInptClientForm:not(:focus) {
+	font-style: italic;
+}
+
+.controlPanelHeadingMobile {
+	display: none;
+}
+
+.buttonsControlPanel,
+.buttonsControlPanelCalendars {
+	font-size: 19px;
+}
+
+.tableSearchResults {
+	width: 100%;
+	background: rgb(196, 232, 235);
+	color: black;
+	border: 5px solid white;
+	font-size: 20px;
+}
+
+.tableSearchResultsTitle {
+	text-align: center;
+	width: 100%;
+}
+
+.searchResultsByPetNameSpan {
+	margin-left: 20px;
+	color: black;
+	text-decoration: underline;
+}
+
+.tableHeadings {
+	width: 25%;
+	text-align: center;
+	color: rgb(3, 43, 29);
+}
+
+.buttonsControlPanelCalendars {
+	display: none;
+}
+
+.searchForm {
+	background: rgb(44, 45, 75);
+	padding: 5px;
+	border: 5px solid rgb(240, 230, 230);
+	margin: 30px;
+}
+
+.searchBoxContainer {
+	margin-bottom: 15px;
+	background: rgb(65, 180, 233);
+	padding-top: -25px;
+	border: 10px solid white;
+}
+
+.searchBoxTitles {
+	text-align: center;
+	color: rgb(247, 247, 245);
+}
+
+.searchButtons {
+	display: block;
+	width: 100%;
+	margin-top: 10px;
+	background: rgb(3, 26, 153);
+	color: rgb(253, 252, 252);
+}
+
+#WaitingList {
+	margin-top: 25px;
+}
+
+.fa-chevron-circle-down {
+	margin-left: 5px;
+}
+
+@media (max-width: 360px) {
+	.controlPanelHeading {
+		display: none;
+	}
+
+	.controlPanelHeadingMobile {
+		display: block;
+		text-align: center;
+		text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	}
+
+	.buttonsControlPanel {
+		font-size: 17px;
+		width: 45%;
+		display: inline-block;
+		margin-left: 0px;
+	}
+
+	.buttonsControlPanelCalendars {
+		font-size: 17px;
+		width: 45%;
+		display: inline-block;
+		margin-left: 0px;
+	}
+}

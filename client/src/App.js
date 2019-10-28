@@ -12,7 +12,6 @@ import Services from "./pages/Services";
 import Footer from "./components/Footer";
 import EditClients from "./components/EditClients";
 import EditEmployees from "./components/EditEmployees";
-import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import NoMatch from "./pages/NoMatch/index";
 import Staff from "./pages/Staff";
@@ -67,7 +66,6 @@ class App extends Component {
 							component={EmployeesProfile}
 						/>
 						<Route exact path="/auth/login" component={SignIn} />
-						<Route exact path="/auth/signup" component={SignUp} />
 						<Route exact path="/auth/logout" component={SignIn} />
 						<Route component={NoMatch} />
 					</Switch>

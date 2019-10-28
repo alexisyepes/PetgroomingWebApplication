@@ -2,10 +2,7 @@ module.exports = function(sequelize, DataTypes) {
 	var CalendarAdmin = sequelize.define("CalendarAdmin", {
 		title: {
 			type: DataTypes.STRING,
-			allowNull: true,
-			validate: {
-				len: [1]
-			}
+			allowNull: true
 		},
 		// allDay: {
 		// 	type: DataTypes.BOOLEAN,

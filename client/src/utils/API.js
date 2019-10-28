@@ -38,12 +38,16 @@ export default {
 		return axios.get("/auth/api/clients/" + id);
 	},
 
-	getClientByName: firstName => {
+	getClientByLastName: lastName => {
+		return axios.get("/api/clients/lastName/" + lastName);
+	},
+
+	getClientByFirstName: firstName => {
 		return axios.get("/api/clients/firstName/" + firstName);
 	},
 
 	getClientByPhone: phone => {
-		return axios.get("/api/clients/phone/" + phone);
+		return axios.get("/api/clients/primaryPhoneNumber/" + phone);
 	},
 
 	updateClient: (id, data) => {
@@ -119,5 +123,42 @@ export default {
 
 	deleteCalendarEmp2Event: id => {
 		return axios.delete("/schedule/calendar_emp2/" + id);
+	},
+
+	//Pets
+	addPet: (ClientId, newPet) => {
+		return axios.post("/api/pets/" + ClientId, newPet);
+	},
+	updatePet: (id, data) => {
+		return axios.put("/api/pets/" + id, data);
+	},
+
+	getPets: async () => {
+		return await axios.get("/api/pets");
+	},
+
+	getPet: id => {
+		return axios.get("/auth/api/pets/" + id);
+	},
+
+	getPetByName: name => {
+		return axios.get("/api/pets/name/" + name);
+	},
+
+	deletePet: id => {
+		return axios.delete("/api/pets/" + id);
+	},
+
+	//Comments
+	addComment: (PetId, newComment) => {
+		return axios.post("/api/comments/" + PetId, newComment);
+	},
+
+	deleteComment: id => {
+		return axios.delete("/api/comments/" + id);
+	},
+
+	updateComment: (id, data) => {
+		return axios.put("/api/comments/" + id, data);
 	}
 };

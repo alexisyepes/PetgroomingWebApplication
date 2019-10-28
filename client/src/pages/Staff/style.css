@@ -1,25 +1,51 @@
-table, th, td {
-    border: 1px solid black;
-  }
+table,
+th,
+td {
+	border: 1px solid black;
+}
 
-#lastName, #firstName, #phone, #petName, #breed, #notes {
-    float: right;
-} 
+#lastName,
+#firstName,
+#phone,
+#petName,
+#breed,
+#notes {
+	float: right;
+}
 
 .formBox {
-    border: 1px solid;
-    color: white;
-    background:rgba(56, 76, 100, 0.897);
-    padding: 15px;
+	border: 1px solid;
+	color: white;
+	background: rgba(56, 76, 100, 0.897);
+	padding: 15px;
 }
 
 .signOutLink {
-    display: none;
+	display: none;
+}
+
+.welcomeAdminMessage {
+	text-align: center;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.buttonsControlPanelManageEmployees {
+	margin-left: 15px;
 }
 
 @media (max-width: 360px) {
-    .signOutLink {
-        display: block;
-    }
+	.signOutLink {
+		display: block;
+	}
 
+	.welcomeAdminMessage {
+		margin-top: 45px;
+	}
+
+	.buttonsControlPanelManageEmployees {
+		font-size: 17px;
+		width: 100%;
+		display: block;
+		margin-left: 0px;
+	}
 }
