@@ -282,7 +282,8 @@ class AdminComp extends Component {
 					primaryPhoneNumber: ""
 				})
 			)
-			.then(res => this.getAllClients())
+			.then(() => this.getAllClients())
+			.then(window.scrollTo(0, 1000))
 			.catch(err => console.log(err));
 	};
 	//Client functions end //////////////////////////////////////////

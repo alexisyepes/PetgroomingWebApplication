@@ -107,7 +107,7 @@ class Profile extends Component {
 		window.location.href = "/auth/login";
 	}
 
-	//edit client form submit
+	//Add client form submit
 	handleFormSubmit = e => {
 		e.preventDefault();
 		if (!this.state.lastName || !this.state.firstName) {
@@ -135,6 +135,7 @@ class Profile extends Component {
 				})
 			)
 			.then(res => this.getAllClients())
+			.then(window.scrollTo(0, 1800))
 			.catch(err => console.log(err));
 	};
 
