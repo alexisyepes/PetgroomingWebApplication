@@ -150,6 +150,10 @@ export default {
 	},
 
 	//Comments
+	getOneComment: id => {
+		return axios.get("/api/comments/" + id);
+	},
+
 	addComment: (PetId, newComment) => {
 		return axios.post("/api/comments/" + PetId, newComment);
 	},

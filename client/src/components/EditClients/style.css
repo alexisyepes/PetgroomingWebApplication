@@ -35,12 +35,45 @@
 	font-size: 40px;
 }
 
+.tableSearchResultsComments {
+	table-layout: fixed;
+	width: 100%;
+	background: rgb(242, 250, 137);
+	color: rgb(10, 0, 0);
+	border: 2px solid rgb(87, 88, 9);
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	font-size: 20px;
+}
+
+.tableCellsCommentsDate {
+	width: 10%;
+}
+
+.tableCellsCommentsComment {
+	width: 60%;
+}
+
+.tableCellsCommentsButtons {
+	width: 20%;
+}
+
 .updateClientTitleForm {
 	text-align: center;
 	color: black;
 	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 	font-size: 35px;
 	margin-bottom: 20px;
+}
+
+.deleteComment-btnSubmit {
+	background: rgb(255, 0, 0);
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.updateComment-btnSubmit {
+	margin-right: 5px;
+	background: rgb(0, 204, 255);
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .noPetsYetTitle {
@@ -100,5 +133,32 @@
 		margin-top: 10px;
 		width: 100%;
 		border: 3px solid white;
+	}
+
+	.tableSearchResultsComments {
+		table-layout: fixed;
+		width: 100%;
+		font-size: 15px;
+	}
+
+	.deleteComment-btnSubmit {
+		font-size: 10px;
+	}
+
+	.updateComment-btnSubmit {
+		font-size: 10px;
+		margin-bottom: 5px;
+	}
+
+	.tableCellsCommentsDate {
+		width: 18%;
+	}
+
+	.tableCellsCommentsComment {
+		width: 50%;
+	}
+
+	.tableCellsCommentsButtons {
+		width: 25%;
 	}
 }

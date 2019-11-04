@@ -14,7 +14,8 @@ import {
 	Input,
 	Modal,
 	ModalHeader,
-	ModalBody
+	ModalBody,
+	Table
 } from "reactstrap";
 import "./style.css";
 
@@ -32,6 +33,7 @@ class index extends Component {
 			client: null,
 			pets: null,
 			PetId: null,
+			commentId: null,
 			allPets: null,
 			isLoading: true,
 			error: false,
@@ -48,12 +50,13 @@ class index extends Component {
 			petBreedToEdit: null,
 			petTypeToEdit: null,
 			fullPetName: null,
-			commentToEditComment: "",
-			commentToEditDate: "",
+			commentToEditComment: [],
+			commentToEditDate: [],
 			startDate: new Date(),
 			clientSearchByPhone: null,
 			clientSearchValuePhone: null,
-			modalToSearchClientByPhone: false
+			modalToSearchClientByPhone: false,
+			modalToSeeFormAndEditComments: false
 		};
 	}
 
@@ -69,6 +72,7 @@ class index extends Component {
 	};
 
 	async componentDidMount() {
+		window.scrollTo(0, 0);
 		let accessString = localStorage.getItem("JWT");
 		if (accessString === null) {
 			this.setState({
@@ -125,26 +129,10 @@ class index extends Component {
 		});
 	};
 
-	getSearchClientResultsByPhone = () => {
-		let clientSearchValuePhone = this.state.clientSearchByPhone;
-
-		API.getClientByPhone(clientSearchValuePhone)
-			.then(res => {
-				if (res.data) {
-					this.setState(
-						{
-							clientSearchValuePhone: res.data
-						},
-						res => console.log(res.data)
-					);
-				} else {
-					this.setState({
-						modalSearchByPhoneResults: false
-					});
-					alert("Phone number does not exist, please try again");
-				}
-			})
-			.catch(error => console.log(error));
+	toggleModalToSeeCommentsForm = () => {
+		this.setState({
+			modalToSeeFormAndEditComments: !this.state.modalToSeeFormAndEditComments
+		});
 	};
 
 	getPetIdForUpdateFunc = ({ currentTarget }) => {
@@ -288,15 +276,17 @@ class index extends Component {
 		window.location.href = "/auth/api/clients/" + ClientId;
 	}
 
-	updateComment({ currentTarget }) {
+	updateComment(e) {
+		e.preventDefault();
 		let commentObj = {
 			date: this.state.commentToEditDate,
-			comment: this.state.commentToEditComment.replace(/^./, str =>
-				str.toUpperCase()
-			)
+			comment: this.state.commentToEditComment
 		};
 		let ClientId = this.state.client.id;
-		let id = currentTarget.value;
+		let id = this.state.commentId;
+
+		console.log(commentObj);
+
 		API.updateComment(id, commentObj)
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
@@ -331,6 +321,27 @@ class index extends Component {
 			window.location.href = "/auth/api/clients/" + clientId;
 		}
 	}
+
+	openModalToEdditComment = ({ currentTarget }) => {
+		this.toggleModalToSeeCommentsForm();
+		if (this.state.modalToSeeFormAndEditComments) {
+			this.setState({
+				commentToEditDate: "",
+				commentToEditComment: "",
+				commentId: ""
+			});
+		}
+		const id = currentTarget.value;
+		API.getOneComment(id)
+			.then(res => {
+				this.setState({
+					commentToEditDate: res.data.date,
+					commentToEditComment: res.data.comment,
+					commentId: res.data.id
+				});
+			})
+			.catch(error => console.log(error));
+	};
 
 	render() {
 		const { isLoading, error } = this.state;
@@ -373,46 +384,94 @@ class index extends Component {
 			comments.map(comment => {
 				return (
 					<div key={comment.id} className="container">
-						<FormGroup>
-							<Form>
-								<div className="row">
-									<div className="col-md-2">
-										<Input
-											id="commentToEditDate"
-											defaultValue={comment.date}
-											onChange={this.onChangeCommentToEdit}
-										></Input>
+						<div>
+							<Table className="tableSearchResultsComments">
+								<tbody>
+									<tr>
+										<td className="tableCellsCommentsDate">{comment.date}</td>
+
+										<td className="tableCellsCommentsComment">
+											{comment.comment}
+										</td>
+
+										<td className="tableCellsCommentsButtons">
+											<Button
+												className="updateComment-btnSubmit"
+												value={comment.id}
+												onClick={this.openModalToEdditComment}
+											>
+												Update
+											</Button>
+											<Button
+												className="deleteComment-btnSubmit"
+												width="15%"
+												value={comment.id}
+												onClick={this.deleteComment}
+											>
+												Delete
+											</Button>
+										</td>
+									</tr>
+								</tbody>
+							</Table>
+						</div>
+
+						<div className="col-lg-10">
+							<Modal
+								className="modal-xl"
+								isOpen={this.state.modalToSeeFormAndEditComments}
+								toggle={this.toggleModalToSeeCommentsForm}
+							>
+								<ModalHeader toggle={this.toggleModalToSeeCommentsForm}>
+									<div>
+										<h4 className="petNameCommentsForm">
+											Pet Name: " {this.state.fullPetName} "
+										</h4>
 									</div>
-									<div className="col-md-8">
-										{/* <Label>Notes</Label> */}
-										<Input
-											id="commentToEditComment"
-											defaultValue={comment.comment}
-											onChange={this.onChangeCommentToEdit}
-										></Input>
+								</ModalHeader>
+								<ModalBody>
+									<div>
+										<h3 className="notesHistoryTitle">Notes History</h3>
 									</div>
-									<div className="col-md-2">
-										<Button
-											style={{ marginRight: "1px" }}
-											width="15%"
-											value={comment.id}
-											color="danger"
-											onClick={this.deleteComment}
-										>
-											Delete
-										</Button>
-										<Button
-											width="15%"
-											value={comment.id}
-											color="info"
-											onClick={this.updateComment}
-										>
-											Update
-										</Button>
-									</div>
-								</div>
-							</Form>
-						</FormGroup>
+									<Form
+										className="addCommentForm"
+										onSubmit={this.updateComment}
+									>
+										<FormGroup>
+											<div className="row">
+												<div className="col-md-3">
+													<Label>Date Format: YYYY/MM/DD</Label>
+													<Input
+														onChange={this.onChangeCommentToEdit}
+														type="text"
+														id="commentToEditDate"
+														defaultValue={comment.date}
+													></Input>
+												</div>
+												<div className="col-md-9">
+													<Label>Comments</Label>
+													<Input
+														placeholder="Enter Notes"
+														onChange={this.onChangeCommentToEdit}
+														type="text"
+														id="commentToEditComment"
+														defaultValue={comment.comment}
+													></Input>
+												</div>
+											</div>
+											<Button
+												block
+												value={comment.id}
+												className="addCommentBtn"
+												color="warning"
+											>
+												Update Comment
+											</Button>
+										</FormGroup>
+									</Form>
+								</ModalBody>
+							</Modal>
+						</div>
 
 						<hr style={{ background: "black" }}></hr>
 					</div>
@@ -503,14 +562,14 @@ class index extends Component {
 
 													<div className="row">
 														<div className="col-md-3">
-															<Label>Date</Label>
+															<Label>Date Format: YYYY/MM/DD</Label>
 															<Input
 																onChange={this.onChangeModal}
 																type="text"
 																name="date"
-																defaultValue={moment(new Date()).format(
-																	"YYYY/MM/DD"
-																)}
+																defaultValue={
+																	moment(new Date()).format("YYYY/MM") + "/day"
+																}
 															></Input>
 														</div>
 														<div className="col-md-9">

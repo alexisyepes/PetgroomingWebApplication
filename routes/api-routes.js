@@ -198,16 +198,14 @@ module.exports = function(app) {
 	});
 
 	//Getting one single comment
-	app.get("/api/comments/:PetId/:id", (req, res) => {
+	app.get("/api/comments/:id", (req, res) => {
 		return db.Comment.findOne({
 			where: {
-				id: req.params.id,
-				PetId: req.params.PetId
-			},
-			include: [db.Pet]
-		}).then(function(dbPet) {
-			if (typeof dbPet === "object") {
-				res.json(dbPet);
+				id: req.params.id
+			}
+		}).then(function(dbComment) {
+			if (typeof dbComment === "object") {
+				res.json(dbComment);
 			}
 		});
 	});
