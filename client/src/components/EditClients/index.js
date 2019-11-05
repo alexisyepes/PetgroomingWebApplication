@@ -254,7 +254,7 @@ class index extends Component {
 			comment: this.state.commentToAdd
 		};
 
-		if (!commentObj) {
+		if (!this.state.date || !this.state.commentToAdd) {
 			return;
 		}
 
