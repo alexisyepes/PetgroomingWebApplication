@@ -253,7 +253,11 @@ class index extends Component {
 			date: this.state.date,
 			comment: this.state.commentToAdd
 		};
-		// console.log(petId, commentObj);
+
+		if (!commentObj) {
+			return;
+		}
+
 		API.addComment(petId, commentObj)
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
