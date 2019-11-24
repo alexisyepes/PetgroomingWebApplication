@@ -6,7 +6,7 @@ This application was created for a real pet grooming business to solve a number 
 <br>
 Note: The code on this repository is not exactly the same as the one being used in production for the business (privacy, database, and confidentiality reasons), but it is close enough to show the overall functionality of this application.
 
-![alt text](./client/public/images/screenshotApp1.jpg)
+![alt text](./client/public/images/screenshotApp1.JPG)
 
 # Link to live site
 
