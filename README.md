@@ -42,17 +42,17 @@ I created one table for each Employee to connect with their own calendar.
 Also Three tables to handle Customers: One for clients(has many pets), one for pets (belong to clients, and has many comments), and one for comments (belong to pets). All this using Sequelize as an ORM.
 
 # Authentication
-![alt text](./client/public/images/screenshotApp2.jpg)
+![alt text](./client/public/images/screenshotApp2.JPG)
 
 ### Authentication (Admin)
-![alt text](./client/public/images/screenshotApp4.jpg)
+![alt text](./client/public/images/screenshotApp4.JPG)
 
 Authentication was implemented using two separate forms: one for the Administrator and one for the employees.
 <br>
 Once the Admin logs in, it is redirected to the Admin Panel to add employees with their respective credentials, as well as to see the clients database if needed. From here, it can also navigate to the staff's control panel
 
 ### Authentication (Employees)
-![alt text](./client/public/images/screenshotApp3.jpg)
+![alt text](./client/public/images/screenshotApp3.JPG)
 
 Once the admin creates the employees credentials, they con login using the employees form.
 Then, they are redirected to the Staff's panel control where different options are provided: 
@@ -62,11 +62,11 @@ Then, they are redirected to the Staff's panel control where different options a
 * Clients list. A table that has the option to filter rows by client number, phone, etc. Each client has the More Info Button that will redirect the users to the Full page with the client information.
 
 # Client Information Page
-![alt text](./client/public/images/screenshotApp5.jpg)
+![alt text](./client/public/images/screenshotApp5.JPG)
 
 On this page, the full client information is shown. From here, the staff member can edit the clients information, add pets to this client and see existing pets. Every Pet has their own comment section (Equivalent to the back of the client physical file to keep records of their services).<br>
  If a pet has not had a comment added yet, the Pet's name will be Black, on the contrary, it will be green. This feature was integrated to help them identify easily which pet has already comments and which ones don't.
-![alt text](./client/public/images/screenshotApp6.jpg)
+![alt text](./client/public/images/screenshotApp6.JPG)
 
 # Separate Roles Privilages 
 
