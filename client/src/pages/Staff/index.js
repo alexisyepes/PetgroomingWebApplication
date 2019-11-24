@@ -157,7 +157,7 @@ class AdminComp extends Component {
 		})
 			.then(
 				this.setState({
-					email: "",
+					emailClient: "",
 					cellphone: "",
 					workPhone: "",
 					lastName: "",
@@ -536,8 +536,8 @@ class AdminComp extends Component {
 												<input
 													className="form-control"
 													type="text"
-													id="email"
-													value={this.state.email}
+													id="emailClient"
+													value={this.state.emailClient}
 													onChange={this.handleChange}
 												/>
 											</div>
