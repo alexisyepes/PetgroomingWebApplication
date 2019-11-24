@@ -290,7 +290,12 @@ class index extends Component {
 		console.log(commentObj);
 
 		API.updateComment(id, commentObj)
-			.then(res => console.log(res))
+			.then(
+				this.setState({
+					commentToEditGroomer: "",
+					commentToEditComment: ""
+				})
+			)
 			.catch(error => console.log(error));
 		window.location.href = "/auth/api/clients/" + ClientId;
 	}
@@ -326,7 +331,7 @@ class index extends Component {
 
 	openModalToEdditComment = ({ currentTarget }) => {
 		this.toggleModalToSeeCommentsForm();
-		if (this.state.modalToSeeFormAndEditComments) {
+		if (!this.state.modalToSeeFormAndEditComments) {
 			this.setState({
 				commentToEditDate: "",
 				commentToEditComment: "",
@@ -447,7 +452,7 @@ class index extends Component {
 														onChange={this.onChangeCommentToEdit}
 														type="text"
 														id="commentToEditDate"
-														defaultValue={comment.date}
+														defaultValue={this.state.commentToEditDate}
 													></Input>
 												</div>
 												<div className="col-md-9">
@@ -457,7 +462,7 @@ class index extends Component {
 														onChange={this.onChangeCommentToEdit}
 														type="text"
 														id="commentToEditComment"
-														defaultValue={comment.comment}
+														defaultValue={this.state.commentToEditComment}
 													></Input>
 												</div>
 											</div>
@@ -605,7 +610,10 @@ class index extends Component {
 															></Input>
 														</div>
 													</div>
-													<p style={{ textAlign: "center", marginTop: "30px"}}>(Please add a space at the end of the date to confirm before submitting comment)</p>
+													<p style={{ textAlign: "center", marginTop: "30px" }}>
+														(Please add a space at the end of the date to
+														confirm before submitting comment)
+													</p>
 													<Button
 														block
 														value={pet.id}

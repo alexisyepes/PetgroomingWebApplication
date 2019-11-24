@@ -62,10 +62,10 @@ Then, they are redirected to the Staff's panel control where different options a
 * Clients list. A table that has the option to filter rows by client number, phone, etc. Each client has the More Info Button that will redirect the users to the Full page with the client information.
 
 # Client Information Page
-![alt text](./client/public/images/screenshotApp5.JPG)
+![alt text](./client/public/images/screenshotApp5.JPG)<br>
 
 On this page, the full client information is shown. From here, the staff member can edit the clients information, add pets to this client and see existing pets. Every Pet has their own comment section (Equivalent to the back of the client physical file to keep records of their services).<br>
- If a pet has not had a comment added yet, the Pet's name will be Black, on the contrary, it will be green. This feature was integrated to help them identify easily which pet has already comments and which ones don't.
+ If a pet has not had a comment added yet, the Pet's name will be Black, on the contrary, it will be green. This feature was integrated to help them identify easily which pet has already comments and which ones don't.<br>
 ![alt text](./client/public/images/screenshotApp6.JPG)
 
 # Separate Roles Privilages 
