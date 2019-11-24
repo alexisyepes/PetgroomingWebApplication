@@ -64,19 +64,26 @@ router.post("/employees/login", function(req, res, next) {
 					email: req.body.email
 				}
 			}).then(employee => {
-				const token = jwt.sign(
-					{ email: employee.email },
-					process.env.JWT_SECRET,
-					{
-						expiresIn: "12h"
-					}
-				);
-				res.status(200).send({
-					authEmployee: true,
-					token,
-					message: "user found & logged in",
-					employee
-				});
+				if (employee) {
+					const token = jwt.sign(
+						{ email: employee.email },
+						process.env.JWT_SECRET,
+						{
+							expiresIn: "12h"
+						}
+					);
+					const employeeInfo = employee;
+					res.status(200).send({
+						authEmployee: true,
+						token,
+						message: "user found & logged in",
+						employeeInfo
+					});
+				} else {
+					res.send({
+						message: "No user found in database"
+					});
+				}
 			});
 		});
 	})(req, res, next);
@@ -88,13 +95,6 @@ router.get("/employees", (req, res) => {
 	});
 });
 
-// Employees profile authenticated
-// router.get('/employees/profile', passport.authenticate('jwtEmployee', { session: false }), (req, res) => {
-//     console.log(req.user);
-//     return res.json(
-//         req.user
-//     );
-// });
 
 // DELETE route for employees.
 router.delete("/employees/:id", function(req, res) {

@@ -1,47 +1,79 @@
 .side-drawer {
-    height: 100%;
-    background:rgba(4, 74, 107, 0.89);
-    box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 60%;
-    max-width: 400px;
-    z-index: 200;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-out;
+	height: 100%;
+	background: rgba(4, 74, 107, 0.89);
+	box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 60%;
+	max-width: 400px;
+	z-index: 200;
+	transform: translateX(-100%);
+	transition: transform 0.3s ease-out;
+}
+
+.controlPanelSidebar {
+	font-size: 16px !important;
+	color: rgb(2, 2, 19) !important;
+	background: rgb(197, 233, 233);
+	border: 1px white solid;
+	border-radius: 5px;
+	padding: 0 5px 0 5px;
+	width: 60px !important;
+}
+
+.logoutBtnSidebar {
+	color: navy;
+	background: rgb(255, 230, 0);
+	border: 1px white solid;
+	border-radius: 5px;
+	padding: 0 10px 0 10px;
+	width: 80px !important;
+}
+
+.adminBtnSidebar {
+	color: rgb(0, 0, 0) !important;
+	font-size: 18px;
+}
+
+.adminPanelBtnSidebar {
+	border-radius: 5px !important;
+}
+
+.usernameLoggedinHomeSidebar {
+	color: white;
+	font-size: 18px !important;
 }
 
 .side-drawer.open {
-    transform: translateX(0);
+	transform: translateX(0);
 }
 
 .side-drawer ul {
-    height: 100%;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	height: 100%;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .side-drawer li {
-    margin: 0.5rem 0;
+	margin: 0.5rem 0;
 }
 
-
 .side-drawer a {
-    color: rgb(248, 248, 250);
-    text-decoration: none;
-    font-size: 1.2rem;
+	color: rgb(248, 248, 250);
+	text-decoration: none;
+	font-size: 1.2rem;
 }
 
 .side-drawer a:hover,
 .side-drawer a:active {
-    color: rgb(30, 30, 150);
+	color: rgb(30, 30, 150);
 }
 
 @media (min-width: 769px) {
-    .side-drawer {
-        display: none;
-    }
+	.side-drawer {
+		display: none;
+	}
 }

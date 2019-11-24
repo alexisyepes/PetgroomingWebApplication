@@ -81,7 +81,6 @@ class index extends Component {
 			});
 		}
 		let id = this.props.match.params.id;
-		// console.log(this.props);
 		await axios
 			.get("/auth/api/clients/" + id, {
 				headers: { Authorization: `JWT ${accessString}` }
@@ -93,7 +92,6 @@ class index extends Component {
 					client: res.data,
 					pets: res.data.Pets
 				});
-				console.log(res.data);
 			})
 			.catch(error => console.log(error));
 	}
@@ -257,8 +255,8 @@ class index extends Component {
 		if (!this.state.date || !this.state.commentToAdd) {
 			return;
 		}
-
 		API.addComment(petId, commentObj)
+
 			.then(res => console.log(res))
 			.catch(error => console.log(error));
 		window.location.href = "/auth/api/clients/" + clientId;
@@ -494,12 +492,30 @@ class index extends Component {
 							<div className="card-body">
 								<div className="card-body">
 									<h2>Pet Info</h2>
-									<h4>
-										Pet Name:{" "}
-										<span>
-											<b>{pet.name}</b>
-										</span>
-									</h4>
+									{pet.Comments < 1 ? (
+										<h4>
+											Pet Name:
+											<span>
+												<b style={{ color: "black" }}> {pet.name}</b>
+											</span>
+										</h4>
+									) : (
+										<h4>
+											Pet Name:{" "}
+											<span>
+												<b
+													style={{
+														color: "green",
+														textShadow:
+															"-1px 0 white, 0 1px white, 1px 0 white, 0 -1px white"
+													}}
+												>
+													{pet.name}
+												</b>
+											</span>
+										</h4>
+									)}
+
 									<h4>
 										Breed:{" "}
 										<span>
@@ -566,14 +582,16 @@ class index extends Component {
 
 													<div className="row">
 														<div className="col-md-3">
-															<Label>Date Format: YYYY/MM/DD</Label>
+															<Label>
+																<b>YYYY/MM/DD</b>
+															</Label>
 															<Input
 																onChange={this.onChangeModal}
 																type="text"
 																name="date"
-																defaultValue={
-																	moment(new Date()).format("YYYY/MM") + "/day"
-																}
+																defaultValue={moment(new Date()).format(
+																	"YYYY/MM/DD"
+																)}
 															></Input>
 														</div>
 														<div className="col-md-9">
@@ -587,6 +605,7 @@ class index extends Component {
 															></Input>
 														</div>
 													</div>
+													<p style={{ textAlign: "center", marginTop: "30px"}}>(Please add a space at the end of the date to confirm before submitting comment)</p>
 													<Button
 														block
 														value={pet.id}
@@ -802,7 +821,7 @@ class index extends Component {
 								</div>
 							</ModalHeader>
 							<ModalBody>
-								<Form>
+								<Form onSubmit={this.onSubmitPetForm}>
 									<FormGroup>
 										<h2 className="titlePets">Add Pet information</h2>
 
@@ -827,12 +846,7 @@ class index extends Component {
 											name="type"
 											defaultValue={this.state.type}
 										></Input>
-										<Button
-											onClick={this.onSubmitPetForm}
-											className="petUpdateBtn"
-											color="warning"
-											// onClick={this.handleEditCommentSubmit}
-										>
+										<Button className="petUpdateBtn" color="warning">
 											Add Pet
 										</Button>
 									</FormGroup>

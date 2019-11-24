@@ -1,74 +1,106 @@
 .toolbar {
-    position: fixed;
-    z-index: 99;
-    top: 0px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(25, 46, 94, 0.952);
-    height: 7%;
+	position: fixed;
+	z-index: 99;
+	top: 0px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(25, 46, 94, 0.952);
+	height: 7%;
+}
+
+.usernameLoggedinHome {
+	color: white;
+	font-size: 20px;
+}
+
+.controlPanelNavbar {
+	color: rgb(2, 2, 19) !important;
+	background: rgb(0, 255, 255);
+	border: 1px white solid;
+	border-radius: 5px;
+	padding: 0 15px 0 15px;
+}
+
+.logoutBtnNavBar {
+	color: navy;
+	background: rgb(255, 230, 0);
+	border: 1px white solid;
+	border-radius: 5px;
+	padding: 0 15px 0 15px;
+}
+
+.adminBtnNavbar {
+    color: black !important;
+    font-size: 18px !important;
+}
+
+.adminPanelBtnNavbar {
+    	border-radius: 5px;
+
 }
 
 .toolbar__navigation {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    padding: 0 1rem;
+	display: flex;
+	height: 100%;
+	align-items: center;
+	padding: 0 1rem;
 }
 
 .toolbar__logo {
-    margin-left: 1rem}
+	margin-left: 1rem;
+}
 
 .toolbar__logo a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
+	color: white;
+	text-decoration: none;
+	font-size: 1.5rem;
 }
 
 .spacer {
-    flex: 1;
+	flex: 1;
 }
 
 .toolbar_navigation-items ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
 }
 
 .toolbar_navigation-items li {
-    padding: 0 3rem;
-    border-left: 1px solid rgb(131, 128, 128);
+	padding: 0 3rem;
+	border-left: 1px solid rgb(131, 128, 128);
 }
 
 .toolbar_navigation-items a {
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
+	color: white;
+	text-decoration: none;
+	font-size: 20px;
 }
 
 .toolbar_navigation-items a:hover,
 .toolbar_navigation-items a:active {
-    color: rgb(58, 36, 250);
+	color: rgb(58, 36, 250);
 }
 
 @media (max-width: 360px) {
-    .homeIcon {
-        display: none;
-    }
+	.homeIcon {
+		display: none;
+	}
 }
 
 @media (max-width: 768px) {
-    .toolbar_navigation-items {
-        display: none;
-    }
+	.toolbar_navigation-items {
+		display: none;
+	}
 }
 
 @media (min-width: 769px) {
-    .toolbar__toggle-button {
-        display: none;
-    }
-    .toolbar__logo {
-        margin-left: 0;
-    }
+	.toolbar__toggle-button {
+		display: none;
+	}
+	.toolbar__logo {
+		margin-left: 0;
+	}
 }

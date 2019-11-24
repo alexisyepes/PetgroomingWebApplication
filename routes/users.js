@@ -7,44 +7,44 @@ const salt = bcrypt.genSaltSync(10);
 const jwt = require("jsonwebtoken");
 
 // Register
-router.post("/signup", (req, res) => {
-	console.log(req.body);
+// router.post("/signup", (req, res) => {
+// 	console.log(req.body);
 
-	const { username, email, password, jobType } = req.body;
+// 	const { username, email, password, jobType } = req.body;
 
-	if (password.length < 6) {
-		throw "Password must be at least 6 characters";
-	} else {
-		User.findOne({
-			where: {
-				email
-			}
-		}).then(user => {
-			if (user) {
-				res.send("Email already exists!");
-			} else {
-				const encryptedPassword = bcrypt.hashSync(password, salt);
+// 	if (password.length < 6) {
+// 		throw "Password must be at least 6 characters";
+// 	} else {
+// 		User.findOne({
+// 			where: {
+// 				email
+// 			}
+// 		}).then(user => {
+// 			if (user) {
+// 				res.send("Email already exists!");
+// 			} else {
+// 				const encryptedPassword = bcrypt.hashSync(password, salt);
 
-				let newUser = {
-					username,
-					email,
-					password: encryptedPassword,
-					jobType
-				};
-				User.create(newUser)
-					.then(() => {
-						// newUser.isAdmin = true
-						delete newUser.password;
-						res.send(newUser);
-					})
-					.catch(function(err) {
-						console.log(err);
-						res.json(err);
-					});
-			}
-		});
-	}
-});
+// 				let newUser = {
+// 					username,
+// 					email,
+// 					password: encryptedPassword,
+// 					jobType
+// 				};
+// 				User.create(newUser)
+// 					.then(() => {
+// 						// newUser.isAdmin = true
+// 						delete newUser.password;
+// 						res.send(newUser);
+// 					})
+// 					.catch(function(err) {
+// 						console.log(err);
+// 						res.json(err);
+// 					});
+// 			}
+// 		});
+// 	}
+// });
 
 // Login Admin
 router.post("/login", function(req, res, next) {
@@ -74,7 +74,7 @@ router.post("/login", function(req, res, next) {
 					auth: true,
 					token,
 					message: "user found & logged in",
-					user: user.jobType
+					user
 				});
 			});
 		});
@@ -91,13 +91,5 @@ router.get(
 		return res.json(req.user);
 	}
 );
-
-// Logout
-// router.get('/logout', function (req, res) {
-//     req.logOut();
-//     req.session.destroy(function (err) {
-//         res.redirect('/auth/login');
-//     });
-// });
 
 module.exports = router;

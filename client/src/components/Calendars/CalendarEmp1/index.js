@@ -19,12 +19,20 @@ import {
 
 let options = [
 	{
+		value: "bath",
+		label: "Book an Appointment (BATH)"
+	},
+	{
 		value: "app",
-		label: "Book an Appointment (DOG)"
+		label: "Book an Appointment (SMALL DOG)"
+	},
+	{
+		value: "mediumDog",
+		label: "Book an Appointment (MEDIUM DOG)"
 	},
 	{
 		value: "bigDog",
-		label: "Book an Appointment (BIG DOG)"
+		label: "Book an Appointment (LARGE DOG)"
 	},
 	{
 		value: "schedule",
@@ -43,6 +51,8 @@ class CalendarEmp1 extends React.Component {
 		// this.onSubmit = this.onSubmitModal.bind(this);
 		// this.onSubmit = this.onSubmitModalToEdit.bind(this);
 		// this.onChange = this.onChangeModal.bind(this);
+		this.handleDeleteEventEmp1 = this.handleDeleteEventEmp1.bind(this);
+		this.onSubmitModalToEditEmp1 = this.onSubmitModalToEditEmp1.bind(this);
 
 		this.state = {
 			modalEmp1: false,
@@ -139,43 +149,43 @@ class CalendarEmp1 extends React.Component {
 		this.state.cal_eventsEmp1.push(obj);
 	};
 
-	onSubmitModalToEditEmp1 = e => {
+	async onSubmitModalToEditEmp1(e) {
 		e.preventDefault();
 
 		// console.log(this.state.eventToEdit);
 
 		let obj = {
 			id: this.state.eventToEditEmp1.id,
-			title: this.state.editTitleEmp1.toLowerCase(),
-			start: this.state.editStartEmp1.toLowerCase(),
-			end: this.state.editEndEmp1.toLowerCase(),
-			appointment: this.state.appointmentEditEmp1.toLowerCase()
+			title: this.state.editTitleEmp1,
+			start: this.state.editStartEmp1,
+			end: this.state.editEndEmp1,
+			appointment: this.state.appointmentEditEmp1
 		};
 		// console.log(obj);
 		console.log(this.state.eventToEditEmp1.id);
 
 		let id = this.state.eventToEditEmp1.id;
 
-		API.updateAppointmentEmp1(id, obj)
+		await API.updateAppointmentEmp1(id, obj)
 
-			.then(res => console.log(res))
+			// .then(res => console.log(res))
 			.catch(error => console.log(error));
 
 		window.location.href = "/auth/employees_profile";
 		// this.props.history.push("/auth/employees_profile");
-	};
+	}
 
-	handleDeleteEventEmp1 = id => {
+	async handleDeleteEventEmp1(id) {
 		if (
 			window.confirm(`Are you sure you wish to delete this Event permanently?`)
 		) {
-			API.deleteCalendarEmp1Event(id)
+			await API.deleteCalendarEmp1Event(id)
 				.then(res => this.getAppointmentsCalendarEmp1())
 				.catch(err => console.log(err));
 			window.location.href = "/auth/employees_profile";
 			// this.props.history.push("/auth/employees_profile");
 		}
-	};
+	}
 
 	//Slot event on Calendar opens modal Emp1
 	handleSelectEmp1 = slot => {
@@ -249,21 +259,30 @@ class CalendarEmp1 extends React.Component {
 
 		// var backgroundColor = "#" + event.hexColor;
 		var style = {
-			backgroundColor: "#0056b3",
+			backgroundColor: "rgb(51, 156, 255)",
 			borderRadius: "5px",
 			opacity: 0.8,
+			fontSize: "16px",
 			color: "white",
 			border: "1px solid blue",
 			display: "block",
 			paddingLeft: "12px",
-			paddingRight: "12px"
+			paddingRight: "12px",
+			textShadow: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"
 		};
-		if (event.appointment !== "app") {
+		if (event.appointment === "schedule") {
 			style.backgroundColor = "red";
 			style.color = "white";
 		}
 		if (event.appointment === "bigDog") {
-			style.backgroundColor = "navy";
+			style.backgroundColor = "rgb(0, 26, 51)";
+		}
+		if (event.appointment === "mediumDog") {
+			style.backgroundColor = "#0056b3";
+			style.textShadow = "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black";
+		}
+		if (event.appointment === "bath") {
+			style.backgroundColor = "rgb(0, 255, 255)";
 		}
 		return {
 			style
@@ -304,24 +323,6 @@ class CalendarEmp1 extends React.Component {
 											placeholder="Please enter the event details"
 											onChange={this.onChangeModal}
 										/>
-										<Input
-											className="slotEvent"
-											type="text"
-											name="start"
-											defaultValue={this.state.slotEventEmp1.start}
-											id="startEmp1"
-											placeholder="Start Time"
-											onChange={this.onChangeModal}
-										/>
-										<Input
-											className="slotEvent"
-											type="text"
-											name="end"
-											defaultValue={this.state.slotEventEmp1.end}
-											id="end"
-											placeholder="End Time"
-											onChange={this.onChangeModal}
-										/>
 
 										<Button color="info" style={{ marginTop: "1rem" }} block>
 											Submit Event
@@ -345,22 +346,6 @@ class CalendarEmp1 extends React.Component {
 							<ModalBody>
 								<Form onSubmit={this.onSubmitModalToEditEmp1}>
 									<FormGroup>
-										<h6>
-											Enter "app" to book an appointment or "schedule" to modify
-											your hours
-											<i
-												style={{ marginLeft: "5px" }}
-												className="fa fa-level-down"
-												aria-hidden="true"
-											></i>
-										</h6>
-										<Input
-											type="text"
-											name="appointmentEditEmp1"
-											value={this.state.appointmentEditEmp1 || ""}
-											placeholder='Enter: "app" or "schedule"'
-											onChange={this.onChangeModal}
-										/>
 										<Input
 											type="text"
 											name="editTitleEmp1"
@@ -389,7 +374,7 @@ class CalendarEmp1 extends React.Component {
 						</Modal>
 					</div>
 					{/* Modal to edit events ends here */}
-
+					
 					{/* Employee #1 calendar Starts*/}
 					<div
 						className="col-md-12"
@@ -426,7 +411,7 @@ class CalendarEmp1 extends React.Component {
 							eventPropGetter={this.eventStyleGetterEmp1}
 							timeslots={2}
 							defaultView="day"
-							views={["month", "week", "day", "agenda"]}
+							views={["month", "week", "day"]}
 							defaultDate={new Date()}
 							localizer={localizer}
 							min={new Date(2019, 10, 0, 7, 0, 0)}

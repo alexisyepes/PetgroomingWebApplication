@@ -10,8 +10,10 @@
 	margin: 0;
 }
 footer {
-	position: relative;
-	height: 60px;
-	margin-top: -60px;
-	clear: both;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	text-align: center;
 }

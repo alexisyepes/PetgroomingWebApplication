@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import EmployeeSignupForm from "../../components/EmployeesForms/EmployeeSignup";
-import { Button } from "reactstrap";
+import { Button, Form } from "reactstrap";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import "./style.css";
@@ -14,6 +14,7 @@ class AdminComp extends Component {
 	state = {
 		clients: [],
 		employees: [],
+		username: "",
 		lastName: "",
 		firstName: "",
 		primaryPhoneNumber: "",
@@ -26,6 +27,7 @@ class AdminComp extends Component {
 		clientSearch: "",
 		clientSearch2: "",
 		clientSearch3: "",
+		toggleAddClientForm: false,
 		toggleEmployeeForm: false,
 		isLoading: true,
 		error: false
@@ -40,15 +42,16 @@ class AdminComp extends Component {
 			});
 		} else {
 			try {
-				// const response = await axios.get("/auth/admin", {
-				// 	headers: { Authorization: `JWT ${accessString}` }
-				// });
+				const response = await axios.get("/auth/admin", {
+					headers: { Authorization: `JWT ${accessString}` }
+				});
+				const adminUsername = localStorage.getItem("USERNAME");
 				this.getAllEmployees();
 				this.getAllClients();
 				this.setState({
-					// username: response.data.username,
-					// email: response.data.email,
-					// password: response.data.password,
+					username: adminUsername,
+					email: response.data.email,
+					password: response.data.password,
 					isLoading: false,
 					error: false
 				});
@@ -74,7 +77,12 @@ class AdminComp extends Component {
 		this.setState({
 			toggleEmployeeForm: !this.state.toggleEmployeeForm
 		});
-		// this.getAllEmployees();
+	};
+
+	toggleAddClientForm = () => {
+		this.setState({
+			toggleAddClientForm: !this.state.toggleAddClientForm
+		});
 	};
 
 	handleDeleteEmployee = id => {
@@ -101,62 +109,6 @@ class AdminComp extends Component {
 
 	//Employee Functions End /////////////////////////////
 
-	//Modal Functions/////////////////////////////////
-
-	onSubmitModal = e => {
-		e.preventDefault();
-		if (!this.state.clientSearch || isNaN(this.state.clientSearch)) {
-			return;
-		}
-
-		this.getSingleClient(); //fix this function...Pending
-		this.toggle();
-	};
-
-	toggle = () => {
-		this.setState({
-			modal: !this.state.modal
-		});
-	};
-	toggle2 = () => {
-		this.setState({
-			modal2: !this.state.modal2
-		});
-	};
-
-	toggle3 = () => {
-		this.setState({
-			modal3: !this.state.modal3
-		});
-	};
-
-	onSubmitModal2 = e => {
-		e.preventDefault();
-		if (!this.state.clientSearch2) {
-			return;
-		}
-
-		this.getSingleClientByName();
-		this.toggle2();
-	};
-
-	onSubmitModal3 = e => {
-		e.preventDefault();
-		if (!this.state.clientSearch3) {
-			return;
-		}
-
-		this.getSingleClientByPhone();
-		this.toggle3();
-	};
-
-	onChangeModal = e => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
-	//End of Modal functions////////////////////////////////////
-
-	//Client functions//////////////////////////////////////////
-
 	getAllClients = () => {
 		API.getClients()
 			.then(res => {
@@ -166,73 +118,6 @@ class AdminComp extends Component {
 				this.setState({ clients: res.data });
 			})
 			.catch(err => console.log(err));
-	};
-
-	getSingleClient = () => {
-		//fix this function to search by ID...pending
-		let clientSearchValue = this.state.clientSearch;
-
-		API.getClient(clientSearchValue)
-			.then(res => {
-				if (res.data) {
-					this.setState(
-						{
-							clientSearch: res.data
-						},
-						() => console.log(this.state.clientSearch)
-					);
-				} else {
-					this.setState({
-						modal: false
-					});
-					alert("Client ID number does not exist, please try again");
-				}
-			})
-			.catch(error => console.log(error));
-	};
-
-	getSingleClientByName = () => {
-		let clientSearchValue2 = this.state.clientSearch2;
-
-		API.getClientByName(clientSearchValue2)
-			.then(res => {
-				if (res.data) {
-					this.setState(
-						{
-							clientSearch2: res.data
-						},
-						() => console.log(this.state.clientSearch2)
-					);
-				} else {
-					this.setState({
-						modal2: false
-					});
-					alert("Client name does not exist, please try again");
-				}
-			})
-			.catch(error => console.log(error));
-	};
-
-	getSingleClientByPhone = () => {
-		let clientSearchValue3 = this.state.clientSearch3;
-
-		API.getClientByPhone(clientSearchValue3)
-			.then(res => {
-				if (res.data) {
-					this.setState(
-						{
-							clientSearch3: res.data
-						},
-						() => console.log(this.state.clientSearch3)
-					);
-				} else {
-					this.setState({
-						modal3: false
-					});
-					alert("Phone number does not exist, please try again");
-				}
-			})
-			.catch(error => console.log(error));
 	};
 
 	handleChange = e => {
@@ -251,9 +136,8 @@ class AdminComp extends Component {
 						"Client with Id number: " + id + " has been successfully deleted!"
 					)
 				)
-				.then(res => this.getAllClients())
+				.then(() => this.getAllClients())
 				.catch(err => console.log(err));
-			// window.location.href = "/auth/admin";
 			this.props.history.push("/auth/admin");
 		}
 	};
@@ -271,7 +155,6 @@ class AdminComp extends Component {
 			workPhone: this.state.workPhone,
 			email: this.state.emailClient
 		})
-			// .then(alert("New Client added to list!"))
 			.then(
 				this.setState({
 					email: "",
@@ -282,11 +165,10 @@ class AdminComp extends Component {
 					primaryPhoneNumber: ""
 				})
 			)
-			.then(() => this.getAllClients())
+			.then(res => this.getAllClients())
 			.then(window.scrollTo(0, 1000))
 			.catch(err => console.log(err));
 	};
-	//Client functions end //////////////////////////////////////////
 
 	render() {
 		const { isLoading, error } = this.state;
@@ -473,12 +355,12 @@ class AdminComp extends Component {
 		];
 
 		return (
-			<div className="container">
+			<div className="container adminPageContainer">
 				<div className="row">
 					<div className="col-md-12">
 						<hr style={{ background: "white" }}></hr>
 						<h1 className="welcomeAdminMessage">
-							<b>Welcome to the Admin Panel</b>
+							<b>Welcome to the Admin Panel {this.state.username}</b>
 						</h1>
 
 						<Button
@@ -526,6 +408,23 @@ class AdminComp extends Component {
 						>
 							Manage Employees <i className="fas fa-chevron-circle-down"></i>
 						</Button>
+
+						<Button
+							className="buttonsControlPanelManageEmployees"
+							style={{
+								border: "1px solid white",
+								fontSize: "20px",
+								background: "rgb(0, 0, 153)",
+								marginBottom: "15px",
+								color: "white",
+								textShadow:
+									"-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"
+							}}
+							onClick={this.toggleAddClientForm}
+						>
+							Add Clients <i className="fas fa-chevron-circle-down"></i>
+						</Button>
+
 						{this.state.toggleEmployeeForm ? (
 							<div
 								className="container"
@@ -545,36 +444,156 @@ class AdminComp extends Component {
 							</div>
 						) : null}
 
-						<hr style={{ background: "white" }}></hr>
+						{/* Toggle Add client form */}
+						{this.state.toggleAddClientForm ? (
+							<div className="container">
+								<div
+									className="row justify-content-around"
+									style={{
+										background: "white",
+										border: "10px solid #0A3055",
+										marginTop: "20px"
+									}}
+								>
+									<div
+										className="col-md-7"
+										style={{
+											border: "10px double #0A3055",
+											background: "#cce6ff",
+											color: "black",
+											marginBottom: "30px",
+											marginTop: "60px"
+										}}
+									>
+										<Form
+											className="form-group"
+											onSubmit={this.handleFormSubmit.bind(this)}
+											style={{ marginBottom: "50px" }}
+										>
+											<h2
+												className="grey-text text-darken-3"
+												style={{ textAlign: "center", marginTop: "15px" }}
+											>
+												Add a New Client
+											</h2>
+
+											<p>* Fields required</p>
+											<hr
+												style={{ background: "grey", marginTop: "30px" }}
+											></hr>
+											<div className="input-field">
+												<label htmlFor="lastName">* Last Name</label>
+												<input
+													className="form-control"
+													type="text"
+													id="lastName"
+													value={this.state.lastName}
+													onChange={this.handleChange}
+												/>
+											</div>
+											<div className="input-field">
+												<label htmlFor="firstName">* First Name</label>
+												<input
+													className="form-control"
+													type="text"
+													id="firstName"
+													value={this.state.firstName}
+													onChange={this.handleChange}
+												/>
+											</div>
+											<div className="input-field">
+												<label htmlFor="phone">Primary Phone</label>
+												<input
+													className="form-control"
+													type="text"
+													id="primaryPhoneNumber"
+													value={this.state.primaryPhoneNumber}
+													onChange={this.handleChange}
+												/>
+											</div>
+											<div className="input-field">
+												<label htmlFor="cellphone">Cell</label>
+												<input
+													className="form-control"
+													type="text"
+													id="cellphone"
+													value={this.state.cellphone}
+													onChange={this.handleChange}
+												/>
+											</div>
+											<div className="input-field">
+												<label htmlFor="workPhone">Work Phone</label>
+												<input
+													className="form-control"
+													type="text"
+													id="workPhone"
+													value={this.state.workPhone}
+													onChange={this.handleChange}
+												/>
+											</div>
+											<div className="input-field">
+												<label htmlFor="email">Email</label>
+												<input
+													className="form-control"
+													type="text"
+													id="email"
+													value={this.state.email}
+													onChange={this.handleChange}
+												/>
+											</div>
+											<div className="input-field">
+												<button
+													style={{ marginTop: "30px" }}
+													className="btn-primary lighten-1 z-depth-0"
+												>
+													Add Client
+												</button>
+											</div>
+										</Form>
+									</div>
+								</div>
+							</div>
+						) : null}
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-md-12">
-						<div
-							style={{
-								background: "white",
-								color: "black",
-								border: "solid 1px blue",
-								paddingTop: "12px",
-								marginBottom: "100px"
-							}}
-						>
-							<h2 style={{ textAlign: "center" }}>
-								<b>Clients List</b>
-							</h2>
-							<hr style={{ background: "blue" }}></hr>
-							<ReactTable
-								columns={columns}
-								data={clients}
-								defaultPageSize={8}
-								noDataText={"No records found with your search"}
-								defaultSorted={[
-									{
-										id: "id",
-										desc: true
-									}
-								]}
-							></ReactTable>
+					<div
+						className="col-md-12"
+						style={{
+							border: "1px solid white",
+							background: "#161515",
+							color: "white",
+							marginBottom: "30px"
+						}}
+					></div>
+					<div className="row">
+						<div className="col-md-12">
+							<div
+								style={{
+									background: "white",
+									color: "black",
+									border: "solid 1px blue",
+									paddingTop: "12px",
+									marginBottom: "100px"
+								}}
+							>
+								<h2 style={{ textAlign: "center" }}>
+									<b>Clients List</b>
+								</h2>
+								<hr style={{ background: "blue" }}></hr>
+								<ReactTable
+									columns={columns}
+									data={clients}
+									defaultPageSize={8}
+									noDataText={"No records found with your search"}
+									defaultSorted={[
+										{
+											id: "id",
+											desc: true
+										}
+									]}
+								></ReactTable>
+							</div>
 						</div>
 					</div>
 				</div>
